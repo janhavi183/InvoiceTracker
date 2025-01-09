@@ -15,15 +15,6 @@ namespace InvoiceTrackerWebApp
     {
 
         /// <summary>
-        /// lblUserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUserName;
-
-        /// <summary>
         /// form1 control.
         /// </summary>
         /// <remarks>
@@ -31,6 +22,15 @@ namespace InvoiceTrackerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
+        /// <summary>
+        /// lblUserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
         /// lblMessage control.
@@ -42,40 +42,49 @@ namespace InvoiceTrackerWebApp
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// lblAmount control.
+        /// txtAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtAmount;
 
         /// <summary>
-        /// lblComments control.
+        /// txtComments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblComments;
+        protected global::System.Web.UI.WebControls.TextBox txtComments;
 
         /// <summary>
-        /// lblInvoiceType control.
+        /// txtInvoiceType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvoiceType;
+        protected global::System.Web.UI.WebControls.TextBox txtInvoiceType;
 
         /// <summary>
-        /// lblCreatedDate control.
+        /// txtCreatedDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedDate;
+        protected global::System.Web.UI.WebControls.TextBox txtCreatedDate;
+
+        /// <summary>
+        /// lnkDownloadFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDownloadFile;
 
         /// <summary>
         /// lnkViewFile control.
@@ -87,6 +96,15 @@ namespace InvoiceTrackerWebApp
         protected global::System.Web.UI.WebControls.LinkButton lnkViewFile;
 
         /// <summary>
+        /// fileViewerContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fileViewerContainer;
+
+        /// <summary>
         /// fileViewer control.
         /// </summary>
         /// <remarks>
@@ -96,12 +114,12 @@ namespace InvoiceTrackerWebApp
         protected global::System.Web.UI.HtmlControls.HtmlIframe fileViewer;
 
         /// <summary>
-        /// lnkDownloadFile control.
+        /// imageViewer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDownloadFile;
+        protected global::System.Web.UI.HtmlControls.HtmlImage imageViewer;
     }
 }

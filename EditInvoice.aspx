@@ -249,7 +249,10 @@ body {
         <asp:LinkButton ID="lnkViewFile" runat="server" CssClass="btn btn-primary w-100 mt-3 mb-4" OnClick="ViewFile">View File</asp:LinkButton>
      
               </div>
+        <div  id="fileViewerContainer" runat="server" style="display: none;"> 
                     <iframe id="fileViewer" runat="server" style="width: 100%; height: 500px; border: 1px solid #ccc; display: none;"></iframe>
+                    <img id="imageViewer" runat="server" style="display:none; max-width:100%; max-height:500px;" />
+            </div>
         <div class="form-group row">
                 <label for="fileUpload">Replace File:</label>
                 <asp:FileUpload ID="fileUpload" runat="server" CssClass="form-control" />

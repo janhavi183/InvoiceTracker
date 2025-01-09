@@ -8,9 +8,9 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <h2>File Viewer</h2>
             <asp:Literal ID="ltMessage" runat="server" />
-            <iframe id="fileFrame" runat="server" style="width:100%; height:600px;" />
+            <!-- Dynamic content container for images or PDFs -->
+            <div id="iframeContainer" runat="server" style="width:100%; height:auto;"></div>
         </div>
     </form>
 </body>

@@ -87,6 +87,15 @@ namespace InvoiceTrackerWebApp
         protected global::System.Web.UI.WebControls.LinkButton lnkViewFile;
 
         /// <summary>
+        /// fileViewerContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fileViewerContainer;
+
+        /// <summary>
         /// fileViewer control.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace InvoiceTrackerWebApp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlIframe fileViewer;
+
+        /// <summary>
+        /// imageViewer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imageViewer;
 
         /// <summary>
         /// fileUpload control.
