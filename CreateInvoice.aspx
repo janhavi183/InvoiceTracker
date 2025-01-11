@@ -1,24 +1,4 @@
-﻿<%--<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CreateInvoice.aspx.cs" Inherits="InvoiceTrackerWebApp.CreateInvoice" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
-            <asp:DropDownList ID="ddlInvoiceType" runat="server"></asp:DropDownList>
-<asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
-<asp:TextBox ID="txtComments" runat="server"></asp:TextBox>
-<asp:FileUpload ID="fileUpload" runat="server" />
-<asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
-        </div>
-    </form>
-</body>
-</html>--%>
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CreateInvoice.aspx.cs" Inherits="InvoiceTrackerWebApp.CreateInvoice" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CreateInvoice.aspx.cs" Inherits="InvoiceTrackerWebApp.CreateInvoice" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

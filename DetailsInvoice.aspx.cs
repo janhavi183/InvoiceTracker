@@ -62,21 +62,7 @@ namespace InvoiceTrackerWebApp
                 txtInvoiceType.Text = dt.Rows[0]["InvoiceTypeName"].ToString(); // Use InvoiceTypeName
                 txtCreatedDate.Text = Convert.ToDateTime(dt.Rows[0]["CreatedDate"]).ToString("yyyy-MM-dd");
             
-            //DatabaseHelper dbHelper = new DatabaseHelper();
-            //string query = "SELECT ID, Amount, Comments, InvoiceTypeID,CreatedDate, [FILE] FROM Invoice WHERE ID = @InvoiceID";
-            //var parameters = new SqlParameter[] { new SqlParameter("@InvoiceID", invoiceId) };
-
-            //DataTable dt = dbHelper.ExecuteQuery(query, parameters);
-            //if (dt.Rows.Count > 0)
-            //{
-            //    txtAmount.Text = dt.Rows[0]["Amount"].ToString();
-            //    txtComments.Text = dt.Rows[0]["Comments"].ToString();
-            //    txtInvoiceType.Text = dt.Rows[0]["InvoiceTypeID"].ToString();
-            //    txtCreatedDate.Text = dt.Rows[0]["CreatedDate"].ToString();
-
-            //    //LoadInvoiceTypes();
-            //    //ddlInvoiceType.SelectedValue = dt.Rows[0]["InvoiceTypeID"].ToString();
-
+       
             if (dt.Rows[0]["FILE"] != DBNull.Value)
                 {
                     byte[] fileData = (byte[])dt.Rows[0]["FILE"];
@@ -92,57 +78,7 @@ namespace InvoiceTrackerWebApp
             }
         }
 
-        //private void LoadInvoiceTypes()
-        //{
-        //    DatabaseHelper dbHelper = new DatabaseHelper();
-        //    string query = "SELECT InvoiceTypeID, TypeName FROM InvoiceType";
-        //    DataTable dt = dbHelper.ExecuteQuery(query);
-
-        //    ddlInvoiceType.DataSource = dt;
-        //    ddlInvoiceType.DataTextField = "TypeName";
-        //    ddlInvoiceType.DataValueField = "InvoiceTypeID";
-        //    ddlInvoiceType.DataBind();
-        //}
-
-        //protected void UpdateInvoice(object sender, EventArgs e)
-        //{
-        //    int invoiceId = Convert.ToInt32(Request.QueryString["InvoiceID"]);
-        //    string query = "UPDATE Invoice SET Amount = @Amount, Comments = @Comments, InvoiceTypeID = @InvoiceTypeID, [FILE] = @FileData WHERE ID = @InvoiceID";
-
-        //    byte[] fileData = null;
-        //    if (fileUpload.HasFile)
-        //    {
-        //        using (MemoryStream ms = new MemoryStream())
-        //        {
-        //            fileUpload.PostedFile.InputStream.CopyTo(ms);
-        //            fileData = ms.ToArray();
-        //        }
-        //    }
-        //    else if (ViewState["FileData"] != null)
-        //    {
-        //        fileData = Convert.FromBase64String(ViewState["FileData"].ToString());
-        //    }
-
-        //    var parameters = new SqlParameter[]
-        //    {
-        //        new SqlParameter("@Amount", txtAmount.Text),
-        //        new SqlParameter("@Comments", txtComments.Text),
-        //        new SqlParameter("@InvoiceTypeID", ddlInvoiceType.SelectedValue),
-        //        new SqlParameter("@FileData", (object)fileData ?? DBNull.Value),
-        //        new SqlParameter("@InvoiceID", invoiceId)
-        //    };
-
-        //    DatabaseHelper dbHelper = new DatabaseHelper();
-        //    int result = dbHelper.ExecuteNonQuery(query, parameters);
-        //    if (result > 0)
-        //    {
-        //        Response.Redirect("InvoiceList.aspx");
-        //    }
-        //    else
-        //    {
-        //        lblMessage.Text = "Failed to update the invoice.";
-        //    }
-        //}
+       
 
         protected void ViewFile(object sender, EventArgs e)
         {

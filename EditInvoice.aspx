@@ -4,6 +4,11 @@
 <head runat="server">
     <title>Edit Invoice</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    
 <style>
        .body {
     background-color: #f0f8ff; /* Light blue background */
@@ -192,7 +197,7 @@ body {
         <!-- Page Title -->
         <h4 class="mb-0 text-center flex-grow-1">Invoice Tracker</h4>
         <!-- Profile -->
-        <div class="position-relative d-flex align-items-center">
+        <%--<div class="position-relative d-flex align-items-center">
             <button id="profileButton" class="border-0 rounded-circle bg-opacity-100 w-10 h-10 " style="background-color: #f8fafc;">
                 <img src="https://avatar.iran.liara.run/public" alt="Profile Icon" class="rounded-circle "style="width: 40px; height: 40px;" />
                 <asp:Label ID="lblUserName" runat="server" CssClass="username-label"></asp:Label>
@@ -204,7 +209,39 @@ body {
                     <li class="nav-item"><a class="nav-link" href="Logout.aspx">Logout</a></li>
                 </ul>
             </div>
-        </div>
+        </div>--%>
+        <div class="position-relative d-flex align-items-center">
+    <button 
+        id="dropdownprofilebutton" 
+        class="border-0 rounded-circle bg-opacity-100" 
+        style="background-color: #f8fafc;" 
+        type="button" 
+        data-bs-toggle="dropdown" 
+        aria-expanded="false">
+        <img 
+            src="https://avatar.iran.liara.run/public" 
+            alt="Profile Icon" 
+            class="rounded-circle" 
+            style="width: 40px; height: 40px;" />
+         <asp:Label ID="lblUserName" runat="server" CssClass="username-label"></asp:Label>
+
+    </button>
+    <ul id="dropdownprofile" class="dropdown-menu dropdown-menu-end" style="z-index: 1050;">
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="Profile.aspx">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12.1597 16C10.1243 16 8.29182 16.8687 7.01276 18.2556C8.38039 19.3474 10.114 20 12 20C13.9695 20 15.7727 19.2883 17.1666 18.1081C15.8956 16.8074 14.1219 16 12.1597 16ZM12 4C7.58172 4 4 7.58172 4 12C4 13.8106 4.6015 15.4807 5.61557 16.8214C7.25639 15.0841 9.58144 14 12.1597 14C14.6441 14 16.8933 15.0066 18.5218 16.6342C19.4526 15.3267 20 13.7273 20 12C20 7.58172 16.4183 4 12 4ZM12 5C14.2091 5 16 6.79086 16 9C16 11.2091 14.2091 13 12 13C9.79086 13 8 11.2091 8 9C8 6.79086 9.79086 5 12 5ZM12 7C10.8954 7 10 7.89543 10 9C10 10.1046 10.8954 11 12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7Z"></path></svg>
+                Profile
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" href="Logout.aspx">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M5 22C4.44772 22 4 21.5523 4 21V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V6H18V4H6V20H18V18H20V21C20 21.5523 19.5523 22 19 22H5ZM18 16V13H11V11H18V8L23 12L18 16Z"></path></svg>
+                Logout
+            </a>
+        </li>
+    </ul>
+</div>
+
     </div>
 </nav>
   <div class="form-container ">
@@ -214,19 +251,7 @@ body {
             <!-- Edit Invoice Form -->
             <h1 class="title">Edit Invoice</h1>
             <asp:Label ID="lblMessage" runat="server" CssClass="text-danger"></asp:Label>
-            <%--<div class="form-group row">
-                <label for="txtAmount">Amount</label>
-                <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
             <div class="form-group row">
-                <label for="txtComments">Comments</label>
-                <asp:TextBox ID="txtComments" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="form-group row">
-                <label for="ddlInvoiceType">Invoice Type</label>
-                <asp:DropDownList ID="ddlInvoiceType" runat="server" CssClass="form-control"></asp:DropDownList>
-            </div>--%>
-        <div class="form-group row">
             <label for="txtAmount">Amount</label>
             <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
