@@ -95,50 +95,74 @@
             $("#dropdownprofilebutton").on("click", function () {
                 $("#dropdownprofile").toggleClass("show");
             });
-            // Dropdown filter
-            $("#dropdownRadioButton").on("click", function () {
-                $("#dropdownRadio").toggleClass("show");
-            });
 
-            $(document).on("click", function (e) {
-                if (!$(e.target).closest("#dropdownRadio, #dropdownRadioButton").length) {
-                    $("#dropdownRadio").removeClass("show");
-                }
-            });
+        //    // Dropdown filter
+        //    $("#dropdownRadioButton").on("click", function () {
+        //        $("#dropdownRadio").toggleClass("show");
+        //    });
 
-            $("#filterOptions input[type='radio']").on("change", function () {
-                const selectedValue = $(this).val();
-                filterInvoices(selectedValue);
-            });
+        //    $(document).on("click", function (e) {
+        //        if (!$(e.target).closest("#dropdownRadio, #dropdownRadioButton").length) {
+        //            $("#dropdownRadio").removeClass("show");
+        //        }
+        //    });
 
-            function filterInvoices(filterValue) {
-                const today = new Date();
-                $("#gvInvoices tr").filter(function () {
-                    const rowDate = new Date($(this).find("td:nth-child(5)").text());
-                    let isVisible = false;
+        //    $("#filterOptions input[type='radio']").on("change", function () {
+        //        const selectedValue = $(this).val();
+        //        filterInvoices(selectedValue);
+        //    });
 
-                    switch (filterValue) {
-                        case "1":
-                            isVisible = (today - rowDate) / (1000 * 60 * 60 * 24) <= 1;
-                            break;
-                        case "7":
-                            isVisible = (today - rowDate) / (1000 * 60 * 60 * 24) <= 7;
-                            break;
-                        case "30":
-                            isVisible = (today - rowDate) / (1000 * 60 * 60 * 24) <= 30;
-                            break;
-                        case "30_1":
-                            isVisible = rowDate.getMonth() === today.getMonth() - 1 && rowDate.getFullYear() === today.getFullYear();
-                            break;
-                        case "12":
-                            isVisible = rowDate.getFullYear() === today.getFullYear();
-                            break;
+        //    function filterInvoices(filterValue) {
+        //        const today = new Date();
+        //        $("#gvInvoices tr").filter(function () {
+        //            const rowDate = new Date($(this).find("td:nth-child(5)").text());
+        //            let isVisible = false;
+
+        //            switch (filterValue) {
+        //                case "1":
+        //                    isVisible = (today - rowDate) / (1000 * 60 * 60 * 24) <= 1;
+        //                    break;
+        //                case "7":
+        //                    isVisible = (today - rowDate) / (1000 * 60 * 60 * 24) <= 7;
+        //                    break;
+        //                case "30":
+        //                    isVisible = (today - rowDate) / (1000 * 60 * 60 * 24) <= 30;
+        //                    break;
+        //                case "30_1":
+        //                    isVisible = rowDate.getMonth() === today.getMonth() - 1 && rowDate.getFullYear() === today.getFullYear();
+        //                    break;
+        //                case "12":
+        //                    isVisible = rowDate.getFullYear() === today.getFullYear();
+        //                    break;
+        //            }
+
+        //            $(this).toggle(isVisible);
+        //        });
+        //    }
+        //});
+            $(document).ready(function () {
+                $("#applyFilter").on("click", function () {
+                    const startDate = new Date($("#startDate").val());
+                    const endDate = new Date($("#endDate").val());
+
+                    if (isNaN(startDate) || isNaN(endDate)) {
+                        alert("Please select valid Start and End dates.");
+                        return;
                     }
 
-                    $(this).toggle(isVisible);
+                    if (startDate > endDate) {
+                        alert("Start Date cannot be greater than End Date.");
+                        return;
+                    }
+
+                    $("#gvInvoices tr").filter(function () {
+                        const rowDate = new Date($(this).find("td:nth-child(5)").text()); // Adjust column index based on table structure
+                        const isVisible = rowDate >= startDate && rowDate <= endDate;
+                        $(this).toggle(isVisible);
+                    });
                 });
-            }
-        });
+            });
+
     </script>
 </head>
 <body>
@@ -213,7 +237,7 @@
     <a href="CreateInvoice.aspx" class="btn btn-success mb-3 ">Create Invoice</a>
 <% } %></div>
                                  <div class="mb-3">
-                <button id="dropdownRadioButton" class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button">
+                <%--<button id="dropdownRadioButton" class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button">
  
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M14 14V20L10 22V14L4 5V3H20V5L14 14ZM6.4037 5L12 13.3944L17.5963 5H6.4037Z"></path></svg>
  <span class="ms-2">Filter</span>
@@ -226,7 +250,27 @@
                          <asp:ListItem Value="30_1">Last month</asp:ListItem>
                          <asp:ListItem Value="12">Last year</asp:ListItem>
                      </asp:RadioButtonList>
-                 </div>
+                 </div>--%>
+                  <!-- Date Chooser Section -->
+    <div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-md-5">
+            <label for="startDate" class="form-label">Start Date:</label>
+            <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+        </div>
+        <div class="col-md-5">
+            <label for="endDate" class="form-label">End Date:</label>
+            <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <asp:Button ID="btnFilter" runat="server" CssClass="btn btn-primary" Text="Filter" OnClick="btnFilter_Click" />
+        </div>
+        <asp:Label ID="lblMessage" runat="server" CssClass="text-danger"></asp:Label>
+
+    </div>
+</div>
+
+
              </div>
 
                         </div>
@@ -243,7 +287,7 @@
                             <input type="text" id="myInput" class="form-control" placeholder="Search invoices..." />
                         </div>
                     </div>
-
+                    <asp:Label ID="lblTotalAmount" runat="server" CssClass="h4 text-primary"></asp:Label>
                     <asp:GridView ID="gvInvoices" runat="server" AutoGenerateColumns="False" CssClass="table table-striped table-hover" OnRowCommand="gvInvoices_RowCommand" ShowFooter="True" OnRowDataBound="gvInvoices_RowDataBound">
                         <Columns>
                             <asp:BoundField DataField="ID" HeaderText="Invoice ID" SortExpression="ID" />

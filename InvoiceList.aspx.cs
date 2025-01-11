@@ -282,6 +282,18 @@ namespace InvoiceTrackerWebApp
             try
             {
                 DataTable invoices = dbHelper.ExecuteQuery(query, parameters);
+
+                // Calculate the total amount
+                decimal totalAmount = 0;
+                foreach (DataRow row in invoices.Rows)
+                {
+                    totalAmount += Convert.ToDecimal(row["Amount"]);
+                }
+
+                // Set the total amount label text
+                lblTotalAmount.Text = "Total Amount: " + totalAmount.ToString("C");
+
+                // Bind the data to the GridView
                 gvInvoices.DataSource = invoices;
                 gvInvoices.DataBind();
             }
@@ -290,6 +302,58 @@ namespace InvoiceTrackerWebApp
                 Response.Write($"<p style='color:red;'>Error loading invoices: {ex.Message}</p>");
             }
         }
+
+        //private void LoadInvoices()
+        //{
+        //    string query = @"
+        //SELECT 
+        //    Invoice.ID,
+        //    Invoice.Amount,
+        //    Invoice.Comments,
+        //    Invoice.CreatedDate,
+        //    InvoiceType.TypeName AS InvoiceType,
+        //    Employee.EmpName AS CreatedBy
+        //FROM 
+        //    Invoice
+        //INNER JOIN InvoiceType ON Invoice.InvoiceTypeID = InvoiceType.InvoiceTypeID
+        //INNER JOIN Employee ON Invoice.CreatedBy = Employee.EmpID";
+
+        //    int roleID = Convert.ToInt32(Session["RoleID"]);
+        //    int userID = Convert.ToInt32(Session["UserID"]);
+
+        //    // Apply filters based on role
+        //    SqlParameter[] parameters = null;
+
+        //    if (roleID == 2) // Manager role
+        //    {
+        //        query += " WHERE Employee.Vendor IN ('A', 'B')";
+        //    }
+        //    else if (roleID == 3) // Supervisor role
+        //    {
+        //        query += " WHERE Invoice.CreatedBy = @userID";
+        //        parameters = new SqlParameter[] { new SqlParameter("@userID", userID) };
+        //    }
+        //    else if (roleID != 1) // Non-admin roles other than 2 or 3
+        //    {
+        //        // No access to invoices for other roles
+        //        gvInvoices.DataSource = null;
+        //        gvInvoices.DataBind();
+        //        return;
+        //    }
+
+        //    query += " ORDER BY Invoice.CreatedDate DESC";
+
+        //    try
+        //    {
+        //        DataTable invoices = dbHelper.ExecuteQuery(query, parameters);
+        //        gvInvoices.DataSource = invoices;
+        //        gvInvoices.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Response.Write($"<p style='color:red;'>Error loading invoices: {ex.Message}</p>");
+        //    }
+        //}
 
         //        private void LoadInvoices()
         //        {
@@ -441,6 +505,111 @@ namespace InvoiceTrackerWebApp
                 Response.Write($"<p style='color:red;'>Error deleting invoice: {ex.Message}</p>");
             }
         }
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            // Validate date inputs
+            if (DateTime.TryParse(txtStartDate.Text, out DateTime startDate) &&
+                DateTime.TryParse(txtEndDate.Text, out DateTime endDate))
+            {
+                if (startDate <= endDate)
+                {
+                    // Filter and bind data within the date range
+                    BindInvoices(startDate, endDate);
+                }
+                else
+                {
+                    // Display error if start date > end date
+                    lblMessage.Text = "Start Date cannot be after End Date.";
+                    lblMessage.CssClass = "text-danger";
+                }
+            }
+            else
+            {
+                // Display error for invalid date formats
+                lblMessage.Text = "Please select valid dates.";
+                lblMessage.CssClass = "text-danger";
+            }
+        }
+        private void BindInvoices(DateTime startDate, DateTime endDate)
+        {
+            string query = @"
+    SELECT 
+        Invoice.ID,
+        Invoice.Amount,
+        Invoice.Comments,
+        Invoice.CreatedDate,
+        InvoiceType.TypeName AS InvoiceType,
+        Employee.EmpName AS CreatedBy
+    FROM 
+        Invoice
+    INNER JOIN InvoiceType ON Invoice.InvoiceTypeID = InvoiceType.InvoiceTypeID
+    INNER JOIN Employee ON Invoice.CreatedBy = Employee.EmpID
+    WHERE Invoice.CreatedDate BETWEEN @StartDate AND @EndDate
+    ORDER BY Invoice.CreatedDate DESC";
+
+            SqlParameter[] parameters = {
+        new SqlParameter("@StartDate", startDate),
+        new SqlParameter("@EndDate", endDate)
+    };
+
+            try
+            {
+                DataTable invoices = dbHelper.ExecuteQuery(query, parameters);
+
+                // Calculate the total amount for the filtered invoices
+                decimal totalAmount = 0;
+                foreach (DataRow row in invoices.Rows)
+                {
+                    totalAmount += Convert.ToDecimal(row["Amount"]);
+                }
+
+                // Update the total amount label
+                lblTotalAmount.Text = "Total Amount: " + totalAmount.ToString("C");
+
+                // Bind the filtered data to the GridView
+                gvInvoices.DataSource = invoices;
+                gvInvoices.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"<p style='color:red;'>Error loading invoices: {ex.Message}</p>");
+            }
+        }
+
+        //    private void BindInvoices(DateTime startDate, DateTime endDate)
+        //    {
+        //        string query = @"
+        //SELECT 
+        //    Invoice.ID,
+        //    Invoice.Amount,
+        //    Invoice.Comments,
+        //    Invoice.CreatedDate,
+        //    InvoiceType.TypeName AS InvoiceType,
+        //    Employee.EmpName AS CreatedBy
+        //FROM 
+        //    Invoice
+        //INNER JOIN InvoiceType ON Invoice.InvoiceTypeID = InvoiceType.InvoiceTypeID
+        //INNER JOIN Employee ON Invoice.CreatedBy = Employee.EmpID
+        //WHERE Invoice.CreatedDate BETWEEN @StartDate AND @EndDate
+        //ORDER BY Invoice.CreatedDate DESC";
+
+        //        SqlParameter[] parameters = {
+        //    new SqlParameter("@StartDate", startDate),
+        //    new SqlParameter("@EndDate", endDate)
+        //};
+
+        //        try
+        //        {
+        //            DataTable invoices = dbHelper.ExecuteQuery(query, parameters);
+        //            gvInvoices.DataSource = invoices;
+        //            gvInvoices.DataBind();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Response.Write($"<p style='color:red;'>Error loading invoices: {ex.Message}</p>");
+        //        }
+        //    }
+
 
 
     }
